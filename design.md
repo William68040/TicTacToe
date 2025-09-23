@@ -15,3 +15,6 @@ Methods:
 - makeMove() : void
 
 ## gameState
+
+Methods: 
+- ShowResult
