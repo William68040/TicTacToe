@@ -1,12 +1,19 @@
-﻿namespace TicTacToe
+﻿using System.Numerics;
+
+namespace TicTacToe
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            // Skapa Board Skapa två Player
+            // Loop tills GameState inte är Undecided:
+            //-Låt nuvarande spelare göra drag
+            //-Rita brädet
+            // - Kontrollera om vinnare eller oavgjort
 
-            Console.WriteLine("Hej Adrian och Benjamin");
+
+
         }
     }
 }
