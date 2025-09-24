@@ -14,43 +14,44 @@ namespace TicTacToe
             Won,
             Draw
         }
-        public void ShowResult(State CurrentState)
+        public void ShowResult(State CurrentState, Player winner)
         {
-            if (CurrentState == State.Undecided)
+            if (CurrentState == State.Won)
             {
-                /// Spelet pågår, gör inget
+                Console.WriteLine($"Player {winner.getName()} ({winner.getMarker()}) has won!");
             }
 
 
-            else if (CurrentState == State.Won)
-            {
-                Console.WriteLine("Player X has won!");
-            }
-
-            else
+            else if (CurrentState == State.Draw)
             {
                 Console.WriteLine("The game is a draw!");
+            }
+
+            else if (CurrentState == State.Undecided)
+            {
+                /// Spelet pågår, gör inget
             }
         }
     }
 }
 
-/// A) Skapa en enum som heter State.
+/// A) Skapa en enum som heter State. 
 
 /// B) Lägg till tre olika tillstånd i denna enum:
-/// Undecided → när spelet fortfarande pågår.
-/// Won → när en spelare har vunnit.
-/// Draw → när spelplanen är full men ingen vinnare finns.
+///    - Undecided → när spelet fortfarande pågår.
+///    - Won → när en spelare har vunnit.
+///    - Draw → när spelplanen är full men ingen vinnare finns.
 
-///C) I början av spelet ska en variabel state sättas till GameState.Undecided.
+/// C) GameState har en metod ShowResult som tar emot:
+///    - currentState (av typen State)
+///    - winner (av typen Player, kan vara null om det blev oavgjort)
 
-///D) Efter varje drag ska programmet kontrollera:
-/// Om en spelare har vunnit → ändra state till GameState.Won.
-/// Om spelplanen är full och ingen vinnare finns → ändra state till GameState.Draw.
-/// Annars låt state vara kvar som GameState.Undecided.
+/// D) Om currentState är Won:
+///    - Använd winner.getName() och winner.getMarker() för att skriva ut:
+///      "Player [namn] ([marker]) has won!"
 
-/// E) Spelets huvudloop ska fortsätta köra så länge state är Undecided.
+/// E) Om currentState är Draw:
+///    - Skriv ut "The game is a draw!"
 
-/// F) När loopen avslutas:
-/// Om state är Won → skriv ut vem som vann.
-/// Om state är Draw → skriv ut att det blev oavgjort.
+/// F) Om currentState är Undecided:
+///    - Gör ingenting (spelet pågår fortfarande).
