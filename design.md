@@ -18,3 +18,6 @@ Methods:
 
 Methods: 
 - ShowResult
+
+Enums:
+- State
