@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TicTacToe
 {
@@ -18,22 +21,15 @@ namespace TicTacToe
         // index 0..8 motsvarar ordningen [7,8,9,4,5,6,1,2,3]
         private readonly char[] cells = new char[9];
 
-        // inmatning (1..9) -> index
-        private static readonly Dictionary<int, int> inputToIndex = new Dictionary<int, int>
-        {
-            {7,0},{8,1},{9,2},
-            {4,3},{5,4},{6,5},
-            {1,6},{2,7},{3,8}
-        };
-
         public Board()
         {
-            for (int i = 0; i < cells.Length; i++)
-                cells[i] = ' ';
+            Square = new char[10];
+            for (int i = 1; i <= 9; i++)
+            {
+                Square[i] = (char)('0' + i);
+            }
         }
-
-        // Ritar brädet. Tom ruta visar sin siffra som hjälp.
-        public void Draw()
+        public void _Board()
         {
             Console.Clear();
             Console.WriteLine("TicTacToe – rutor som på numpaden (7-8-9 / 4-5-6 / 1-2-3)\n");
@@ -70,4 +66,5 @@ namespace TicTacToe
         /// <summary>Hämta tecknet i given cell (0..8).</summary>
         public char GetCell(int index) => cells[index];
     }
-}
+
+}     
