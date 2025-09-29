@@ -21,3 +21,8 @@ Methods:
 
 Enums:
 - State
+
+## CheckWinner
+
+Methods: 
+- GetWinner
