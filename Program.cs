@@ -4,6 +4,7 @@
     {
         static void Main()
         {
+            // Ställ in konsolen för UTF-8 (för att kunna visa t.ex. svenska tecken)
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             // Fråga efter spelare 1:s namn
