@@ -7,51 +7,67 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    internal class Board
+    /// <summary>
+    /// 3x3-bräde. Rutor numreras som ett numeriskt tangentbord:
+    /// 7 8 9
+    /// 4 5 6
+    /// 1 2 3
+    /// </summary>
+    class Board
     {
-        public char[] Square { get; private set; }
+        // index 0..8 motsvarar ordningen [7,8,9,4,5,6,1,2,3]
+        private readonly char[] cells = new char[9];
+
+        // inmatning (1..9) -> index
+        private static readonly Dictionary<int, int> inputToIndex = new Dictionary<int, int>
+        {
+            {7,0},{8,1},{9,2},
+            {4,3},{5,4},{6,5},
+            {1,6},{2,7},{3,8}
+        };
 
         public Board()
         {
-            Square = new char[10];
-            for (int i = 1; i <= 9; i++)
-            {
-                Square[i] = (char)('0' + i);
-            }
+            for (int i = 0; i < cells.Length; i++)
+                cells[i] = ' ';
         }
-        public void _Board()
+
+        // Ritar brädet. Tom ruta visar sin siffra som hjälp.
+        public void Draw()
         {
             Console.Clear();
-            Console.WriteLine(" {0} | {1} | {2} ", Square[1], Square[2], Square[3]);
+            Console.WriteLine("TicTacToe – rutor som på numpaden (7-8-9 / 4-5-6 / 1-2-3)\n");
+
+            char Show(int idx, int number) => cells[idx] == ' ' ? number.ToString()[0] : cells[idx];
+
+            Console.WriteLine($" {Show(0, 7)} | {Show(1, 8)} | {Show(2, 9)} ");
             Console.WriteLine("---+---+---");
-            Console.WriteLine(" {0} | {1} | {2} ", Square[4], Square[5], Square[6]);
+            Console.WriteLine($" {Show(3, 4)} | {Show(4, 5)} | {Show(5, 6)} ");
             Console.WriteLine("---+---+---");
-            Console.WriteLine(" {0} | {1} | {2} ", Square[7], Square[8], Square[9]);
+            Console.WriteLine($" {Show(6, 1)} | {Show(7, 2)} | {Show(8, 3)} ");
+            Console.WriteLine();
         }
 
-        
-        public bool IfSquareEmpty(int pos)
+        public bool IsFull()
         {
-            return Square[pos] != 'X' && Square[pos] != 'O';    // Om en ruta är ledig
+            foreach (var c in cells)
+                if (c == ' ') return false;
+            return true;
         }
-        
-        // Måste lägga in position, Spelarens symbol fyller ruta
-        // Om man lägger in fel värde
-        
 
-        
-        
-        public bool IfBoardIsFull()
+        /// <summary>
+        /// Försök placera symbol i vald knapp (1..9). Returnerar false om otillåtet.
+        /// </summary>
+        public bool PlaceMark(int keypadNumber, char symbol)
         {
-            for (int i = 1; i <= 9; i++)
-            { 
-                if (Square[i] != 'X' && Square[i] != 'O')    // Om alla rutor är upptagna 
-                    return false;   
-            }
-        return true;    
+            if (!inputToIndex.ContainsKey(keypadNumber)) return false;
+            int idx = inputToIndex[keypadNumber];
+            if (cells[idx] != ' ') return false; // redan upptagen
+            cells[idx] = symbol;
+            return true;
         }
-        
 
+        /// <summary>Hämta tecknet i given cell (0..8).</summary>
+        public char GetCell(int index) => cells[index];
     }
-
-}     
+}
